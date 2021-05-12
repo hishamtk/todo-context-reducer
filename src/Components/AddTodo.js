@@ -1,8 +1,10 @@
 import React, { useContext, useState } from "react";
+import AlertContext from "../Context/AlertContext/AlertContext";
 import TodoContext from "../Context/TodoContext/TodoContext";
 
 function AddTodo() {
   const context = useContext(TodoContext);
+  const alertContext = useContext(AlertContext);
   const [text, setText] = useState("");
 
   const handleChange = (e) => {
@@ -11,6 +13,10 @@ function AddTodo() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (text === "") {
+      return alertContext.handleAlert("Todo should not be empty");
+    }
+
     context.addTodo(text);
     setText("");
   };

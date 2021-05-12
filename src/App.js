@@ -6,6 +6,7 @@ import Footer from "./Components/Footer";
 import ListTodo from "./Components/ListTodo";
 import Navbar from "./Components/Navbar";
 import Pagination from "./Components/Pagination";
+import AlertState from "./Context/AlertContext/AlertState";
 import TodoContext from "./Context/TodoContext/TodoContext";
 
 const App = () => {
@@ -137,18 +138,20 @@ const App = () => {
     <div>
       <Navbar />
       <div className="container mx-auto p-4 md:w-3/5 w-4/5 ">
-        <Alert alert={alert} />
-        <AddTodo />
+        <AlertState>
+          <Alert  />
+          <AddTodo />
 
-        <ListTodo todos={pageTodo} />
+          <ListTodo todos={pageTodo} />
 
-        <Pagination
-          pages={pages}
-          currPage={currPage}
-          perPage={perPage}
-          setCurrPage={setCurrPage}
-          total={todos.length}
-        />
+          <Pagination
+            pages={pages}
+            currPage={currPage}
+            perPage={perPage}
+            setCurrPage={setCurrPage}
+            total={todos.length}
+          />
+        </AlertState>
       </div>
 
       <Footer />

@@ -1,9 +1,11 @@
 import { useContext, useState } from "react";
+import AlertContext from "../Context/AlertContext/AlertContext";
 import TodoContext from "../Context/TodoContext/TodoContext";
 
 function Todo({ todo }) {
   const context = useContext(TodoContext);
-  const [newTodd, setNewTodo] = useState("");
+  const alertContext = useContext(AlertContext);
+  const [newTodo, setNewTodo] = useState("");
 
   const handleEdit = () => {
     setNewTodo(todo.title);
@@ -16,7 +18,10 @@ function Todo({ todo }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    context.saveChange(newTodd, todo.id);
+    if (newTodo === "") {
+      return alertContext.handleAlert("Todo should not be empty");
+    }
+    context.saveChange(newTodo, todo.id);
     setNewTodo("");
   };
 
@@ -41,7 +46,7 @@ function Todo({ todo }) {
             <input
               className="appearance-none mr-5 bg-gray-300 border-none w-full text-gray-700 mr-3 py-4 px-4 leading-tight focus:outline-none text-xl font-bold"
               type="text"
-              value={newTodd}
+              value={newTodo}
               onChange={handleChange}
               name="todo"
             />
