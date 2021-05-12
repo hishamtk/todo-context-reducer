@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import TodoContext from "../Context/TodoContext/TodoContext";
 
-function AddTodo({ addTodo }) {
+function AddTodo() {
+  const context = useContext(TodoContext);
   const [text, setText] = useState("");
 
   const handleChange = (e) => {
@@ -9,7 +11,7 @@ function AddTodo({ addTodo }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addTodo(text);
+    context.addTodo(text);
     setText("");
   };
 

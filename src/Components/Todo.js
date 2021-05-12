@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import TodoContext from "../Context/TodoContext/TodoContext";
 
-function Todo({ todo, deleteTodo, makeEditable, saveChange }) {
+function Todo({ todo }) {
+  const context = useContext(TodoContext);
   const [newTodd, setNewTodo] = useState("");
 
   const handleEdit = () => {
     setNewTodo(todo.title);
-    makeEditable(todo.id);
+    context.makeEditable(todo.id);
   };
 
   const handleChange = (e) => {
@@ -14,7 +16,7 @@ function Todo({ todo, deleteTodo, makeEditable, saveChange }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    saveChange(newTodd, todo.id);
+    context.saveChange(newTodd, todo.id);
     setNewTodo("");
   };
 
@@ -56,7 +58,7 @@ function Todo({ todo, deleteTodo, makeEditable, saveChange }) {
       <button
         className="flex-shrink-0 mx-4 bg-red-500 hover:bg-red-700  text-lg text-white py-3 px-5 rounded"
         type="button"
-        onClick={() => deleteTodo(todo.id)}
+        onClick={() => context.deleteTodo(todo.id)}
       >
         Delete
       </button>
