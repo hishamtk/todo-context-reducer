@@ -9,7 +9,7 @@ function ListTodo() {
     <div className="mx-auto container mt-20 min-h-semi">
       <div className="flex flex-col">
         {context.pageTodo.map((todo) => {
-          return <Todo todo={todo} />;
+          return <Todo key={todo.id} todo={todo} />;
         })}
       </div>
     </div>
