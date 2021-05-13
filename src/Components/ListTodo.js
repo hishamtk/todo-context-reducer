@@ -1,13 +1,14 @@
 import { useContext } from "react";
-import TodoContext from "../Context/TodoContext/TodoContext";
+import PaginationContext from "../Context/PaginationContext/PaginationContext";
+
 import Todo from "./Todo";
 
 function ListTodo() {
-  const context = useContext(TodoContext);
+  const context = useContext(PaginationContext);
   return (
     <div className="mx-auto container mt-20 min-h-semi">
       <div className="flex flex-col">
-        {context.todos.map((todo) => {
+        {context.pageTodo.map((todo) => {
           return (
             <Todo
               todo={todo}
