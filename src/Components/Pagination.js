@@ -1,13 +1,18 @@
+import { useContext } from "react";
+import PaginationContext from "../Context/PaginationContext/PaginationContext";
+import TodoContext from "../Context/TodoContext/TodoContext";
 import Page from "./Page";
 
-const Pagination = ({ perPage, pages, currPage, setCurrPage, total }) => {
+const Pagination = ({ perPage }) => {
+  const todoContext = useContext(TodoContext)
+  const context = useContext(PaginationContext)
   return (
     <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
       <div className="flex-1 flex justify-between sm:hidden">
         <button
           onClick={() => {
-            if (currPage - 1 > 0) {
-              setCurrPage(currPage - 1);
+            if (context.currPage - 1 > 0) {
+              context.changeCurrPage(context.currPage - 1);
             }
           }}
           className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:text-gray-500"
@@ -16,8 +21,8 @@ const Pagination = ({ perPage, pages, currPage, setCurrPage, total }) => {
         </button>
         <button
           onClick={() => {
-            if (currPage + 1 <= pages) {
-              setCurrPage(currPage + 1);
+            if (context.currPage + 1 <= context.pages) {
+              context.changeCurrPage(context.currPage + 1);
             }
           }}
           className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:text-gray-500"
@@ -29,11 +34,11 @@ const Pagination = ({ perPage, pages, currPage, setCurrPage, total }) => {
         <div>
           <p className="text-sm text-gray-700">
             Showing{" "}
-            <span className="font-medium">{(currPage - 1) * perPage}</span> to{" "}
+            <span className="font-medium">{(context.currPage - 1) * perPage}</span> to{" "}
             <span className="font-medium">
-              {currPage * perPage < total ? currPage * perPage : total}
+              {context.currPage * perPage < todoContext.todos.length ? context.currPage * perPage : todoContext.todos.length}
             </span>{" "}
-            of <span className="font-medium">{total}</span> results
+            of <span className="font-medium">{todoContext.todos.length}</span> results
           </p>
         </div>
         <div>
@@ -43,8 +48,8 @@ const Pagination = ({ perPage, pages, currPage, setCurrPage, total }) => {
           >
             <button
               onClick={() => {
-                if (currPage - 1 > 0) {
-                  setCurrPage(currPage - 1);
+                if (context.currPage - 1 > 0) {
+                  context.changeCurrPage(context.currPage - 1);
                 }
               }}
               className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
@@ -64,20 +69,20 @@ const Pagination = ({ perPage, pages, currPage, setCurrPage, total }) => {
                 />
               </svg>
             </button>
-            {[...Array(pages)].map((page, index) => {
+            {[...Array(context.pages)].map((page, index) => {
               return (
                 <Page
                   key={index + 1}
                   number={index + 1}
-                  setCurrPage={setCurrPage}
+                  
                 />
               );
             })}
 
             <button
               onClick={() => {
-                if (currPage + 1 <= pages) {
-                  setCurrPage(currPage + 1);
+                if (context.currPage + 1 <= context.pages) {
+                  context.changeCurrPage(context.currPage + 1);
                 }
               }}
               className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"

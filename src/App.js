@@ -19,7 +19,8 @@ const App = () => {
 
   useEffect(() => {
     todoContext.getTodoApi();
-  }, [todoContext]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const showTodo = () => {
@@ -29,14 +30,17 @@ const App = () => {
       ) {
         return;
       }
+
       let todo = todoContext.todos.slice(
         (pageContext.currPage - 1) * perPage,
         pageContext.currPage * perPage
       );
+
       pageContext.changePageTodo(todo);
     };
     showTodo(pageContext.currPage);
-  }, [pageContext, pageContext.currPage, pageContext.pages, todoContext.todos]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pageContext.currPage, pageContext.pages, todoContext.todos]);
 
   useEffect(() => {
     const calcPages = (arr, perPage) => {
@@ -49,9 +53,8 @@ const App = () => {
       }
     };
     calcPages(todoContext.todos, perPage);
-  }, [pageContext, pageContext.pages, todoContext.todos]);
-
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pageContext.pages, todoContext.todos]);
 
   return (
     <div>
@@ -60,11 +63,10 @@ const App = () => {
         <AlertState>
           <Alert />
           <AddTodo />
-         
-            <ListTodo />
 
-            <Pagination perPage={perPage} />
-          
+          <ListTodo />
+
+          <Pagination perPage={perPage} />
         </AlertState>
       </div>
 

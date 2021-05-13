@@ -33,7 +33,7 @@ const TodoState = (props) => {
     const cacheTodo = localStorage.getItem("todo");
 
     if (cacheTodo !== null) {
-      dispatch({ type: SET_TODO, payload: { todos: cacheTodo } });
+      dispatch({ type: SET_TODO, payload: { todos: JSON.parse(cacheTodo) } });
     } else {
       try {
         let response = await fetch(
@@ -81,7 +81,16 @@ const TodoState = (props) => {
     localStorage.setItem("todo", JSON.stringify(newTodos));
   };
   return (
-    <TodoContext.Provider value={{ ...state, deleteTodo, addTodo, getTodoApi,makeEditable,saveChange }}>
+    <TodoContext.Provider
+      value={{
+        ...state,
+        deleteTodo,
+        addTodo,
+        getTodoApi,
+        makeEditable,
+        saveChange,
+      }}
+    >
       {props.children}
     </TodoContext.Provider>
   );

@@ -8,6 +8,7 @@ const reducer = (state, action) => {
     case SET_CURR_PAGES:
       return { ...state, currPage: payload.pages };
     case SET_PAGE_TODO:
+     
       return { ...state, pageTodo: payload.pageTodo };
 
     default:
